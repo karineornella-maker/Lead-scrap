@@ -1,0 +1,31 @@
+[
+  {
+    "id": "pro-networks",
+    "label": "Réseaux Pro",
+    "groups": [
+      { "id": "rpac", "name": "RPAC", "scope": "Canada", "keywords": ["RPAC", "Réseau des Professionnels Africains du Canada"] },
+      { "id": "cadres-dirigeants-afrique", "name": "Cadres & Dirigeants d'Afrique", "scope": "Europe", "keywords": ["Cadres et Dirigeants d'Afrique", "Cadres & Dirigeants d'Afrique"] },
+      { "id": "cercle-franco-africain", "name": "Cercle Franco-Africain", "scope": "Europe", "keywords": ["Cercle Franco-Africain"] },
+      { "id": "finance-afrique", "name": "Finance Afrique", "scope": "International", "keywords": ["Finance Afrique"] }
+    ]
+  },
+  {
+    "id": "school-clubs",
+    "label": "Clubs Grandes Écoles",
+    "groups": [
+      { "id": "club-afrique-hec-montreal", "name": "Club Afrique HEC Montréal", "scope": "Canada", "keywords": ["Club Afrique HEC Montréal", "HEC Montréal Club Afrique"] },
+      { "id": "club-afrique-hec-paris", "name": "Club Afrique HEC Paris", "scope": "France", "keywords": ["HEC Paris Africa Club", "Club Afrique HEC Paris"] },
+      { "id": "club-afrique-dauphine", "name": "Club Afrique Dauphine", "scope": "France", "keywords": ["Dauphine Africa", "Club Afrique Dauphine"] },
+      { "id": "club-afrique-laval", "name": "Club Afrique Laval", "scope": "Canada", "keywords": ["Association des étudiants africains Université Laval", "Club Afrique Laval"] },
+      { "id": "club-afrique-uottawa", "name": "Club Afrique uOttawa", "scope": "Canada", "keywords": ["Association des étudiants africains uOttawa", "Club Afrique uOttawa"] }
+    ]
+  },
+  {
+    "id": "morocco-networks",
+    "label": "Réseaux Maroc",
+    "groups": [
+      { "id": "cesam", "name": "CESAM", "scope": "Maroc", "keywords": ["CESAM", "Confédération des Élèves, Étudiants et Stagiaires Africains au Maroc"] },
+      { "id": "assoc-subsahariens-maroc", "name": "Associations des stagiaires et étudiants subsahariens au Maroc", "scope": "Maroc", "keywords": ["étudiants subsahariens au Maroc", "Association des étudiants africains au Maroc"] }
+    ]
+  }
+]

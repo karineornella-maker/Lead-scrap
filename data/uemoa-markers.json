@@ -1,0 +1,159 @@
+{
+  "african_institutions": [
+    {
+      "name": "INP-HB",
+      "aliases": ["INPHB", "Institut National Polytechnique Félix Houphouët-Boigny", "INP Félix Houphouët-Boigny"],
+      "country": "Côte d'Ivoire",
+      "weight": 35
+    },
+    {
+      "name": "CESAG",
+      "aliases": ["Centre Africain d'Etudes Supérieures en Gestion", "Centre Africain d'Études Supérieures en Gestion"],
+      "country": "Sénégal",
+      "weight": 35
+    },
+    {
+      "name": "UCAD",
+      "aliases": ["Université Cheikh Anta Diop", "Universite Cheikh Anta Diop de Dakar"],
+      "country": "Sénégal",
+      "weight": 35
+    },
+    {
+      "name": "2iE",
+      "aliases": ["Institut International d'Ingénierie de l'Eau et de l'Environnement", "Institut 2iE"],
+      "country": "Burkina Faso",
+      "weight": 35
+    },
+    {
+      "name": "Lycée Classique d'Abidjan",
+      "aliases": ["Lycee Classique d'Abidjan", "Classique d'Abidjan"],
+      "country": "Côte d'Ivoire",
+      "weight": 35
+    },
+    {
+      "name": "Lycée Jean Mermoz Dakar",
+      "aliases": ["Lycee Mermoz Dakar", "Lycée Mermoz", "Jean Mermoz Dakar"],
+      "country": "Sénégal",
+      "weight": 35
+    },
+    {
+      "name": "Lycée Sainte-Marie de Cocody",
+      "aliases": ["Lycee Sainte-Marie", "Sainte Marie de Cocody"],
+      "country": "Côte d'Ivoire",
+      "weight": 35
+    },
+    {
+      "name": "Université Félix Houphouët-Boigny",
+      "aliases": ["UFHB", "Universite de Cocody", "Université de Cocody"],
+      "country": "Côte d'Ivoire",
+      "weight": 35
+    },
+    {
+      "name": "ESMT",
+      "aliases": ["Ecole Supérieure Multinationale des Télécommunications", "École Supérieure Multinationale des Télécommunications"],
+      "country": "Sénégal",
+      "weight": 35
+    },
+    {
+      "name": "ISM Dakar",
+      "aliases": ["Institut Supérieur de Management Dakar", "Groupe ISM Dakar"],
+      "country": "Sénégal",
+      "weight": 35
+    },
+    {
+      "name": "BEM Dakar",
+      "aliases": ["BEM Management School Dakar", "BEM Dakar"],
+      "country": "Sénégal",
+      "weight": 35
+    },
+    {
+      "name": "UAC Bénin",
+      "aliases": ["Université d'Abomey-Calavi", "Universite d'Abomey Calavi"],
+      "country": "Bénin",
+      "weight": 35
+    },
+    {
+      "name": "Université de Lomé",
+      "aliases": ["Universite de Lome", "Université du Bénin Lomé"],
+      "country": "Togo",
+      "weight": 35
+    },
+    {
+      "name": "Université Joseph Ki-Zerbo",
+      "aliases": ["Université de Ouagadougou", "Universite Joseph Ki Zerbo"],
+      "country": "Burkina Faso",
+      "weight": 35
+    },
+    {
+      "name": "École Polytechnique de Yaoundé",
+      "aliases": ["Ecole Nationale Supérieure Polytechnique de Yaoundé", "Polytechnique Yaoundé"],
+      "country": "Cameroun",
+      "weight": 35
+    },
+    {
+      "name": "Université de Yaoundé I",
+      "aliases": ["Université de Yaoundé", "Universite de Yaounde"],
+      "country": "Cameroun",
+      "weight": 35
+    },
+    {
+      "name": "Université de Kinshasa",
+      "aliases": ["UNIKIN", "Universite de Kinshasa"],
+      "country": "RDC",
+      "weight": 35
+    }
+  ],
+  "uemoa_countries": [
+    { "name": "Côte d'Ivoire", "aliases": ["Cote d'Ivoire", "Ivory Coast", "Abidjan"], "weight": 25 },
+    { "name": "Sénégal", "aliases": ["Senegal", "Dakar"], "weight": 25 },
+    { "name": "Bénin", "aliases": ["Benin", "Cotonou"], "weight": 25 },
+    { "name": "Togo", "aliases": ["Lomé", "Lome"], "weight": 25 },
+    { "name": "Burkina Faso", "aliases": ["Burkina", "Ouagadougou"], "weight": 25 },
+    { "name": "Mali", "aliases": ["Bamako"], "weight": 25 },
+    { "name": "Niger", "aliases": ["Niamey"], "weight": 25 },
+    { "name": "Guinée-Bissau", "aliases": ["Guinee-Bissau", "Bissau"], "weight": 25 }
+  ],
+  "central_africa_countries": [
+    { "name": "Cameroun", "aliases": ["Cameroon", "Douala", "Yaoundé", "Yaounde"], "weight": 15 },
+    { "name": "RDC", "aliases": ["République Démocratique du Congo", "RD Congo", "DR Congo", "Kinshasa"], "weight": 15 },
+    { "name": "Gabon", "aliases": ["Libreville"], "weight": 15 },
+    { "name": "Congo", "aliases": ["Brazzaville"], "weight": 15 }
+  ],
+  "moroccan_institutions": [
+    {
+      "name": "ENCG",
+      "aliases": ["Ecole Nationale de Commerce et de Gestion", "École Nationale de Commerce et de Gestion"],
+      "requires_subsaharan_signal": true,
+      "weight": 10
+    },
+    {
+      "name": "EMSI",
+      "aliases": ["Ecole Marocaine des Sciences de l'Ingénieur", "École Marocaine des Sciences de l'Ingénieur"],
+      "requires_subsaharan_signal": true,
+      "weight": 10
+    },
+    {
+      "name": "Al Akhawayn",
+      "aliases": ["Al Akhawayn University", "AUI Ifrane"],
+      "requires_subsaharan_signal": true,
+      "weight": 10
+    },
+    {
+      "name": "Université Hassan II",
+      "aliases": ["Universite Hassan II", "Hassan II Casablanca"],
+      "requires_subsaharan_signal": true,
+      "weight": 10
+    }
+  ],
+  "role_keywords": {
+    "finance": ["finance", "financier", "financial", "trader", "corporate finance", "m&a", "trésorerie", "tresorerie"],
+    "banking": ["banque", "banker", "banquier", "banking", "private banking", "banque d'investissement"],
+    "portfolio": ["gestionnaire de portefeuille", "portfolio manager", "asset management", "gestion d'actifs", "wealth manager"],
+    "audit": ["audit", "auditeur", "auditor", "internal audit", "contrôle de gestion", "controle de gestion"],
+    "consulting": ["conseil", "consultant", "consulting", "advisory", "stratégie", "strategie"],
+    "it-engineering": ["ingénieur", "ingenieur", "engineer", "software", "développeur", "data", "architecte"],
+    "management": ["manager", "directeur", "director", "head of", "responsable", "management"],
+    "directors": ["directeur", "director", "vp", "vice president", "managing director", "cfo", "chief"]
+  }
+}
+

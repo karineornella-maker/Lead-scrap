@@ -1,0 +1,146 @@
+[
+  {
+    "id": "north-america",
+    "label": "Amérique du Nord",
+    "countries": [
+      {
+        "code": "CA",
+        "name": "Canada",
+        "allLabel": "Toutes les grandes universités du Canada",
+        "groups": [
+          {
+            "id": "ca-quebec",
+            "label": "Québec",
+            "universities": [
+              { "id": "hec-montreal", "name": "HEC Montréal", "aliases": ["HEC Montreal"] },
+              { "id": "udem", "name": "Université de Montréal", "aliases": ["UdeM", "Universite de Montreal"] },
+              { "id": "polymtl", "name": "Polytechnique Montréal", "aliases": ["Polytechnique Montreal", "École Polytechnique de Montréal"] },
+              { "id": "esg-uqam", "name": "ESG UQAM", "aliases": ["UQAM", "Université du Québec à Montréal"] },
+              { "id": "ulaval", "name": "Université Laval", "aliases": ["Universite Laval", "ULaval"] },
+              { "id": "usherbrooke", "name": "Université de Sherbrooke", "aliases": ["Sherbrooke", "UdeS"] },
+              { "id": "ets", "name": "École de technologie supérieure", "aliases": ["ÉTS", "ETS Montréal"] },
+              { "id": "uqtr", "name": "UQTR", "aliases": ["Université du Québec à Trois-Rivières"] },
+              { "id": "uqac", "name": "UQAC", "aliases": ["Université du Québec à Chicoutimi"] },
+              { "id": "uqo", "name": "UQO", "aliases": ["Université du Québec en Outaouais"] },
+              { "id": "concordia", "name": "Concordia University", "aliases": ["Concordia", "John Molson School of Business"] },
+              { "id": "mcgill", "name": "McGill University", "aliases": ["McGill", "Desautels"] }
+            ]
+          },
+          {
+            "id": "ca-outside-quebec",
+            "label": "Ontario & Hors Québec",
+            "universities": [
+              { "id": "uottawa", "name": "Université d'Ottawa", "aliases": ["uOttawa", "University of Ottawa", "Telfer"] },
+              { "id": "umoncton", "name": "Université de Moncton", "aliases": ["Moncton"] },
+              { "id": "york-glendon", "name": "York University (Glendon)", "aliases": ["Glendon College", "York University", "Schulich"] },
+              { "id": "carleton", "name": "Carleton University", "aliases": ["Carleton", "Sprott"] },
+              { "id": "utoronto", "name": "University of Toronto", "aliases": ["UofT", "Rotman"] }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "US",
+        "name": "USA",
+        "groups": [
+          {
+            "id": "us-top",
+            "label": "Grandes universités",
+            "universities": [
+              { "id": "harvard", "name": "Harvard University", "aliases": ["Harvard", "Harvard Business School", "HBS"] },
+              { "id": "columbia", "name": "Columbia University", "aliases": ["Columbia", "Columbia Business School"] },
+              { "id": "nyu", "name": "New York University", "aliases": ["NYU", "NYU Stern"] },
+              { "id": "mit", "name": "Massachusetts Institute of Technology", "aliases": ["MIT", "MIT Sloan"] },
+              { "id": "georgia-tech", "name": "Georgia Institute of Technology", "aliases": ["Georgia Tech"] },
+              { "id": "berkeley", "name": "UC Berkeley", "aliases": ["University of California, Berkeley", "Berkeley Haas"] },
+              { "id": "stanford", "name": "Stanford University", "aliases": ["Stanford", "Stanford GSB"] },
+              { "id": "wharton", "name": "The Wharton School", "aliases": ["Wharton", "University of Pennsylvania", "UPenn"] }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "europe",
+    "label": "Europe francophone",
+    "countries": [
+      {
+        "code": "FR",
+        "name": "France",
+        "groups": [
+          {
+            "id": "fr-business",
+            "label": "Écoles de Commerce",
+            "universities": [
+              { "id": "hec-paris", "name": "HEC Paris", "aliases": ["HEC"] },
+              { "id": "essec", "name": "ESSEC Business School", "aliases": ["ESSEC"] },
+              { "id": "escp", "name": "ESCP Business School", "aliases": ["ESCP", "ESCP Europe"] },
+              { "id": "edhec", "name": "EDHEC Business School", "aliases": ["EDHEC"] },
+              { "id": "emlyon", "name": "emlyon business school", "aliases": ["EM Lyon", "EMLYON"] },
+              { "id": "skema", "name": "SKEMA Business School", "aliases": ["Skema"] },
+              { "id": "neoma", "name": "NEOMA Business School", "aliases": ["Neoma"] },
+              { "id": "kedge", "name": "KEDGE Business School", "aliases": ["Kedge"] },
+              { "id": "audencia", "name": "Audencia", "aliases": ["Audencia Business School"] },
+              { "id": "dauphine", "name": "Université Paris Dauphine-PSL", "aliases": ["Dauphine", "Paris Dauphine"] }
+            ]
+          },
+          {
+            "id": "fr-engineering",
+            "label": "Écoles d'Ingénieurs",
+            "universities": [
+              { "id": "polytechnique", "name": "École polytechnique", "aliases": ["Polytechnique", "l'X", "Ecole Polytechnique"] },
+              { "id": "centralesupelec", "name": "CentraleSupélec", "aliases": ["Centrale Paris", "Supélec", "CentraleSupelec"] },
+              { "id": "mines", "name": "Mines Paris - PSL", "aliases": ["Mines ParisTech", "École des Mines", "IMT Mines"] },
+              { "id": "ponts", "name": "École des Ponts ParisTech", "aliases": ["Ponts ParisTech", "ENPC"] },
+              { "id": "insa", "name": "INSA", "aliases": ["INSA Lyon", "INSA Toulouse", "INSA Rennes"] }
+            ]
+          },
+          {
+            "id": "fr-universities",
+            "label": "Universités",
+            "universities": [
+              { "id": "sorbonne", "name": "Sorbonne Université", "aliases": ["Sorbonne", "Paris 1 Panthéon-Sorbonne"] },
+              { "id": "paris-saclay", "name": "Université Paris-Saclay", "aliases": ["Paris-Saclay", "Paris Sud"] },
+              { "id": "assas", "name": "Université Paris-Panthéon-Assas", "aliases": ["Panthéon-Assas", "Paris 2 Assas"] }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "BE",
+        "name": "Belgique",
+        "groups": [
+          {
+            "id": "be-all",
+            "label": "Universités & Écoles",
+            "universities": [
+              { "id": "ulb", "name": "Université libre de Bruxelles", "aliases": ["ULB"] },
+              { "id": "uclouvain", "name": "UCLouvain", "aliases": ["Université catholique de Louvain", "Louvain School of Management"] },
+              { "id": "uliege", "name": "Université de Liège", "aliases": ["ULiège", "ULg"] },
+              { "id": "solvay", "name": "Solvay Brussels School", "aliases": ["Solvay"] },
+              { "id": "hec-liege", "name": "HEC Liège", "aliases": ["HEC Liege", "HEC-ULiège"] }
+            ]
+          }
+        ]
+      },
+      {
+        "code": "CH",
+        "name": "Suisse",
+        "groups": [
+          {
+            "id": "ch-all",
+            "label": "Universités & Écoles",
+            "universities": [
+              { "id": "unil", "name": "Université de Lausanne", "aliases": ["UNIL"] },
+              { "id": "epfl", "name": "EPFL", "aliases": ["École polytechnique fédérale de Lausanne"] },
+              { "id": "unige", "name": "Université de Genève", "aliases": ["UniGe", "University of Geneva"] },
+              { "id": "hec-lausanne", "name": "HEC Lausanne", "aliases": ["HEC Lausanne UNIL"] },
+              { "id": "unine", "name": "Université de Neuchâtel", "aliases": ["UniNE"] }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
