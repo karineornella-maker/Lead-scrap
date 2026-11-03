@@ -2,8 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/enrichment",
-      "schedule": "*/10 * * * *"
+      "schedule": "0 0 * * *"
     }
   ]
 }
-
