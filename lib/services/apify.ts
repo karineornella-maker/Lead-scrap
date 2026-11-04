@@ -5,6 +5,7 @@ export interface RawSearchResult {
   url: string;
   description?: string;
   snippet?: string;
+  searchQueryTerm?: string;
 }
 
 export interface ParsedProfile {
@@ -15,6 +16,7 @@ export interface ParsedProfile {
   current_company: string | null;
   linkedin_url: string;
   source_snippet: string | null;
+  search_query?: string | null;
 }
 
 /**
@@ -90,6 +92,7 @@ export function parseLinkedInResult(result: RawSearchResult): ParsedProfile | nu
     current_company: currentCompany,
     linkedin_url: cleanUrl,
     source_snippet: result.description || result.snippet || null,
+    search_query: result.searchQueryTerm || null,
   };
 }
 
@@ -118,7 +121,7 @@ export async function startXRayRun(campaignId: string, queries: string[]): Promi
     {
       queries: queries.join("\n"),
       maxPagesPerQuery: 1,
-      resultsPerPage: 10,
+      resultsPerPage: 20,
       mobileResults: false,
     },
     { webhooks },
@@ -158,6 +161,7 @@ export async function fetchRunResults(runId: string): Promise<RawSearchResult[]>
   const rawResults: RawSearchResult[] = [];
 
   for (const item of dataset.items as Array<Record<string, unknown>>) {
+    const queryTerm = (item.searchQuery as { term?: string } | undefined)?.term || "";
     if (Array.isArray(item.organicResults)) {
       for (const org of item.organicResults as Array<Record<string, string>>) {
         if (org.url && org.title) {
@@ -165,6 +169,7 @@ export async function fetchRunResults(runId: string): Promise<RawSearchResult[]>
             title: org.title,
             url: org.url,
             description: org.description || org.snippet || "",
+            searchQueryTerm: queryTerm,
           });
         }
       }

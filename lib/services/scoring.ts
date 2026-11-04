@@ -7,6 +7,7 @@ export interface ScoreInput {
   snippet?: string | null;
   education?: string | null;
   groups?: string[] | null;
+  searchQuery?: string | null;
 }
 
 export interface ScoreResult {
@@ -142,6 +143,60 @@ export function scoreLead(input: ScoreInput): ScoreResult {
     if (roleMatched) {
       score += 10;
       ties.push("Profil métier finance / décisionnaire ciblé");
+    }
+  }
+
+  // Si aucun signal n'a été trouvé directement dans le snippet, mais que le profil a été sélectionné
+  // par une requête Google X-Ray contenant explicitement des marqueurs d'institutions africaines ou UEMOA,
+  // le moteur Google a indexé ces faits sur le profil complet (même si le snippet à 160 caractères les a tronqués).
+  if (ties.length === 0 && input.searchQuery) {
+    const normQuery = normalizeText(input.searchQuery);
+    for (const inst of markers.african_institutions) {
+      const terms = [inst.name, ...(inst.aliases || [])];
+      if (terms.some((term) => matchesTerm(normQuery, term))) {
+        score = 35;
+        ties.push(`Affinité académique ciblée X-Ray : ${inst.name} (${inst.country})`);
+        hasSubsaharanSignal = true;
+        break;
+      }
+    }
+
+    if (!hasSubsaharanSignal) {
+      for (const country of markers.uemoa_countries) {
+        const terms = [country.name, ...(country.aliases || [])];
+        if (terms.some((term) => matchesTerm(normQuery, term))) {
+          score = 30;
+          ties.push(`Rattachement territorial ciblé X-Ray : ${country.name}`);
+          hasSubsaharanSignal = true;
+          break;
+        }
+      }
+    }
+
+    if (!hasSubsaharanSignal) {
+      for (const country of markers.central_africa_countries) {
+        const terms = [country.name, ...(country.aliases || [])];
+        if (terms.some((term) => matchesTerm(normQuery, term))) {
+          score = 30;
+          ties.push(`Rattachement géographique ciblé X-Ray : ${country.name}`);
+          hasSubsaharanSignal = true;
+          break;
+        }
+      }
+    }
+
+    if (hasSubsaharanSignal) {
+      let roleMatched = false;
+      for (const [, keywords] of Object.entries(markers.role_keywords)) {
+        if (keywords.some((kw) => matchesTerm(normalized, kw))) {
+          roleMatched = true;
+          break;
+        }
+      }
+      if (roleMatched) {
+        score += 10;
+        ties.push("Profil métier finance / décisionnaire ciblé");
+      }
     }
   }
 

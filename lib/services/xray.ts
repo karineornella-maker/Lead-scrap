@@ -124,12 +124,11 @@ export function buildXRayQueries(campaign: Campaign): string[] {
       const allAfricanMarkers = [...institutionMarkers.slice(0, 8), ...countryMarkers.slice(0, 4)];
       const markerPackets = chunkArray(allAfricanMarkers, 3);
 
-      for (const uni of targetUnis) {
-        const uniTerms = [uni.name, ...(uni.aliases || [])].slice(0, 2);
-        const uniGroup = orGroup(uniTerms);
-
-        for (const packet of markerPackets) {
-          const markerGroup = orGroup(packet);
+      for (const packet of markerPackets) {
+        const markerGroup = orGroup(packet);
+        for (const uni of targetUnis) {
+          const uniTerms = [uni.name, ...(uni.aliases || [])].slice(0, 2);
+          const uniGroup = orGroup(uniTerms);
           const query = roleGroup
             ? `${sitePrefix} ${uniGroup} ${markerGroup} ${roleGroup}`
             : `${sitePrefix} ${uniGroup} ${markerGroup}`;

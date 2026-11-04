@@ -70,6 +70,7 @@ export async function importRun(campaignId: string, runId: string): Promise<Impo
         snippet: parsed.source_snippet,
         education: westernEdu,
         groups: typedCampaign.target_groups,
+        searchQuery: parsed.search_query,
       });
 
       // Minimisation des données : on ne stocke que les leads au-dessus du seuil (30)
