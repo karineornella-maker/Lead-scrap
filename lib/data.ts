@@ -7,7 +7,7 @@ export const affinityCategories = affinityGroupsJson as AffinityCategory[];
 
 export const MIN_UEMOA_SCORE = 30;
 
-// CLAUDE.md §3 : filtre de pouvoir d'achat
+// Filtres de rôles cibles
 export const targetRoles = [
   { id: "finance", label: "Finance" },
   { id: "banking", label: "Banque" },
@@ -25,6 +25,15 @@ export function findCountry(code: string): { region: Region; country: Country } 
     if (country) return { region, country };
   }
   return null;
+}
+
+export function findCountries(codes: string[]): Array<{ region: Region; country: Country }> {
+  const result: Array<{ region: Region; country: Country }> = [];
+  for (const code of codes) {
+    const found = findCountry(code);
+    if (found) result.push(found);
+  }
+  return result;
 }
 
 export function countryUniversityIds(country: Country): string[] {

@@ -10,6 +10,7 @@ export interface Campaign {
   name: string;
   target_region: string | null;
   target_country: string;
+  target_countries?: string[];
   target_universities: string[];
   target_roles: string[];
   target_groups: string[];

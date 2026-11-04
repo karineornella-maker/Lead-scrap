@@ -8,6 +8,7 @@ const DOMAIN_MAP: Record<string, string> = {
   FR: "fr.linkedin.com/in",
   BE: "be.linkedin.com/in",
   CH: "ch.linkedin.com/in",
+  LU: "lu.linkedin.com/in",
   US: "www.linkedin.com/in",
 };
 
@@ -36,11 +37,22 @@ function orGroup(items: string[]): string {
 
 /**
  * Construit les requêtes Google Dork / X-Ray Search pour une campagne donnée.
+ * Supporte la sélection multi-pays (ex: Suisse + Belgique + France).
  * Les requêtes restent sous la limite de ~32 termes de Google.
  */
 export function buildXRayQueries(campaign: Campaign): string[] {
-  const domain = getLinkedInDomain(campaign.target_country);
-  const sitePrefix = `site:${domain}`;
+  // Détermination de la liste des pays cibles (multi-pays ou mono-pays)
+  const countries =
+    campaign.target_countries && campaign.target_countries.length > 0
+      ? campaign.target_countries
+      : campaign.target_country
+        ? campaign.target_country.includes(",")
+          ? campaign.target_country.split(",").map((c) => c.trim().toUpperCase())
+          : [campaign.target_country.toUpperCase()]
+        : ["FR"];
+
+  // Construction du préfixe site LinkedIn pour chaque pays
+  const sitePrefixes = countries.map((c) => `site:${getLinkedInDomain(c)}`);
 
   // Récupération des rôles cibles
   const roleKeywords: string[] = [];
@@ -64,66 +76,65 @@ export function buildXRayQueries(campaign: Campaign): string[] {
 
   const queries: string[] = [];
 
-  if (campaign.group_mode === "standalone") {
-    // Mode Autonome : l'utilisateur est totalement libre de ne choisir aucun groupe
-    const selectedGroupIds = new Set(campaign.target_groups);
+  for (const sitePrefix of sitePrefixes) {
+    if (campaign.group_mode === "standalone") {
+      // Mode Autonome : l'utilisateur cible des groupes ou marqueurs
+      const selectedGroupIds = new Set(campaign.target_groups);
 
-    if (selectedGroupIds.size > 0) {
-      // Si l'utilisateur a choisi des groupes, on cible ces réseaux
-      const affinityCategories = affinityGroupsData as AffinityCategory[];
-      const allGroups = affinityCategories.flatMap((c) => c.groups);
-      const targetGroups = allGroups.filter((g) => selectedGroupIds.has(g.id));
+      if (selectedGroupIds.size > 0) {
+        const affinityCategories = affinityGroupsData as AffinityCategory[];
+        const allGroups = affinityCategories.flatMap((c) => c.groups);
+        const targetGroups = allGroups.filter((g) => selectedGroupIds.has(g.id));
 
-      for (const group of targetGroups) {
-        const groupTerms = [group.name, ...group.keywords].slice(0, 3);
-        const groupStr = orGroup(groupTerms);
-        const query = roleGroup ? `${sitePrefix} ${groupStr} ${roleGroup}` : `${sitePrefix} ${groupStr}`;
-        queries.push(query);
+        for (const group of targetGroups) {
+          const groupTerms = [group.name, ...group.keywords].slice(0, 3);
+          const groupStr = orGroup(groupTerms);
+          const query = roleGroup ? `${sitePrefix} ${groupStr} ${roleGroup}` : `${sitePrefix} ${groupStr}`;
+          queries.push(query);
+        }
+      } else {
+        const institutionMarkers = markers.african_institutions.map((i) => i.name);
+        const countryMarkers = markers.uemoa_countries.map((c) => c.name);
+        const allAfricanMarkers = [...institutionMarkers.slice(0, 8), ...countryMarkers.slice(0, 4)];
+        const markerPackets = chunkArray(allAfricanMarkers, 3);
+
+        for (const packet of markerPackets) {
+          const markerGroup = orGroup(packet);
+          const query = roleGroup
+            ? `${sitePrefix} ${markerGroup} ${roleGroup}`
+            : `${sitePrefix} ${markerGroup}`;
+          queries.push(query);
+        }
       }
     } else {
-      // Campagne 100% autonome sans aucun groupe imposé :
-      // Cible directement les compétences/métiers et les marqueurs factuels UEMOA
+      // Mode Cross-Filter : croisement Établissement/Formation × Marqueurs Africains × Métiers
+      const regions = universitiesData as Region[];
+      const allUnis = regions
+        .flatMap((r) => r.countries)
+        .flatMap((c) => c.groups)
+        .flatMap((g) => g.universities);
+
+      const selectedUniIds = new Set(campaign.target_universities);
+      const targetUnis =
+        selectedUniIds.size > 0 ? allUnis.filter((u) => selectedUniIds.has(u.id)) : allUnis.slice(0, 3);
+
+      // Paquets de marqueurs africains (institutions & pays clés)
       const institutionMarkers = markers.african_institutions.map((i) => i.name);
       const countryMarkers = markers.uemoa_countries.map((c) => c.name);
       const allAfricanMarkers = [...institutionMarkers.slice(0, 8), ...countryMarkers.slice(0, 4)];
       const markerPackets = chunkArray(allAfricanMarkers, 3);
 
-      for (const packet of markerPackets) {
-        const markerGroup = orGroup(packet);
-        const query = roleGroup
-          ? `${sitePrefix} ${markerGroup} ${roleGroup}`
-          : `${sitePrefix} ${markerGroup}`;
-        queries.push(query);
-      }
-    }
-  } else {
-    // Mode Cross-Filter : croisement Université Occidentale × Marqueurs Africains (écoles / pays) × Métiers
-    const regions = universitiesData as Region[];
-    const allUnis = regions
-      .flatMap((r) => r.countries)
-      .flatMap((c) => c.groups)
-      .flatMap((g) => g.universities);
+      for (const uni of targetUnis) {
+        const uniTerms = [uni.name, ...(uni.aliases || [])].slice(0, 2);
+        const uniGroup = orGroup(uniTerms);
 
-    const selectedUniIds = new Set(campaign.target_universities);
-    const targetUnis =
-      selectedUniIds.size > 0 ? allUnis.filter((u) => selectedUniIds.has(u.id)) : allUnis.slice(0, 3);
-
-    // Paquets de marqueurs africains (institutions & pays clés)
-    const institutionMarkers = markers.african_institutions.map((i) => i.name);
-    const countryMarkers = markers.uemoa_countries.map((c) => c.name);
-    const allAfricanMarkers = [...institutionMarkers.slice(0, 8), ...countryMarkers.slice(0, 4)];
-    const markerPackets = chunkArray(allAfricanMarkers, 3);
-
-    for (const uni of targetUnis) {
-      const uniTerms = [uni.name, ...(uni.aliases || [])].slice(0, 2);
-      const uniGroup = orGroup(uniTerms);
-
-      for (const packet of markerPackets) {
-        const markerGroup = orGroup(packet);
-        const query = roleGroup
-          ? `${sitePrefix} ${uniGroup} ${markerGroup} ${roleGroup}`
-          : `${sitePrefix} ${uniGroup} ${markerGroup}`;
-        queries.push(query);
+        for (const packet of markerPackets) {
+          const markerGroup = orGroup(packet);
+          const query = roleGroup
+            ? `${sitePrefix} ${uniGroup} ${markerGroup} ${roleGroup}`
+            : `${sitePrefix} ${uniGroup} ${markerGroup}`;
+          queries.push(query);
+        }
       }
     }
   }

@@ -16,7 +16,8 @@ export type CampaignFormState = { error: string | null };
 
 export interface CampaignPayload {
   name: string;
-  country: string;
+  country?: string;
+  countries?: string[];
   universities: string[];
   roles: string[];
   groups: string[];
@@ -49,10 +50,25 @@ export async function createCampaign(
   const name = typeof raw.name === "string" ? raw.name.trim().slice(0, 120) : "";
   if (!name) return { error: "Donnez un nom à la campagne." };
 
-  const match = typeof raw.country === "string" ? findCountry(raw.country) : null;
-  if (!match) return { error: "Choisissez un pays cible." };
+  // Support sélection multi-pays (ex: Suisse, Belgique, France)
+  const submittedCountries = [
+    ...new Set([
+      ...(Array.isArray(raw.countries) ? raw.countries : []),
+      ...(typeof raw.country === "string" && raw.country ? [raw.country] : []),
+    ]),
+  ].filter((c): c is string => typeof c === "string" && c.trim().length > 0);
 
-  const validUniversities = new Set(countryUniversityIds(match.country));
+  if (!submittedCountries.length) return { error: "Choisissez au moins un pays cible." };
+
+  const matchedCountries = submittedCountries
+    .map((code) => findCountry(code))
+    .filter((m): m is NonNullable<ReturnType<typeof findCountry>> => m !== null);
+
+  if (!matchedCountries.length) return { error: "Les pays sélectionnés ne sont pas reconnus." };
+
+  const validUniversities = new Set(
+    matchedCountries.flatMap((m) => countryUniversityIds(m.country)),
+  );
   const universities = [...new Set(asStringArray(raw.universities))].filter((id) => validUniversities.has(id));
   const roles = [...new Set(asStringArray(raw.roles))].filter((id) => roleIds.has(id));
   const groups = [...new Set(asStringArray(raw.groups))].filter((id) => groupIds.has(id));
@@ -64,10 +80,13 @@ export async function createCampaign(
     return { error: "La taille du lot doit être comprise entre 1 et 5000." };
   }
 
+  const primaryCountry = matchedCountries[0];
+  const countryCodes = matchedCountries.map((m) => m.country.code);
+
   const { error } = await supabase.from("campaigns").insert({
     name,
-    target_region: match.region.id,
-    target_country: match.country.code,
+    target_region: primaryCountry.region.id,
+    target_country: countryCodes.join(","),
     target_universities: universities,
     target_roles: roles,
     target_groups: groups,
